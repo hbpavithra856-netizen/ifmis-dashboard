@@ -1,15 +1,13 @@
 {
   "files": {
     "main.css": "/ifmis-dashboard/static/css/main.32a62c70.css",
-    "main.js": "/ifmis-dashboard/static/js/main.d0752570.js",
-    "static/js/453.e15008ab.chunk.js": "/ifmis-dashboard/static/js/453.e15008ab.chunk.js",
+    "main.js": "/ifmis-dashboard/static/js/main.841d012e.js",
     "index.html": "/ifmis-dashboard/index.html",
     "main.32a62c70.css.map": "/ifmis-dashboard/static/css/main.32a62c70.css.map",
-    "main.d0752570.js.map": "/ifmis-dashboard/static/js/main.d0752570.js.map",
-    "453.e15008ab.chunk.js.map": "/ifmis-dashboard/static/js/453.e15008ab.chunk.js.map"
+    "main.841d012e.js.map": "/ifmis-dashboard/static/js/main.841d012e.js.map"
   },
   "entrypoints": [
     "static/css/main.32a62c70.css",
-    "static/js/main.d0752570.js"
+    "static/js/main.841d012e.js"
   ]
 }
