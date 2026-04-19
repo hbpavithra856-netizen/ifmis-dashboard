@@ -1,13 +1,26 @@
-function Login({ username, setUsername, password, setPassword, handleLogin }) {
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+function Login() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    if (username && password) {
+      // 🔥 SAVE USERNAME
+      localStorage.setItem("username", username);
+
+      // 🔥 GO TO DASHBOARD
+      navigate("/dashboard");
+    } else {
+      alert("Enter username and password");
+    }
+  };
+
   return (
-    <div style={{
-      backgroundColor: "white",
-      padding: "30px",
-      borderRadius: "10px",
-      boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-      textAlign: "center",
-      width: "300px"
-    }}>
+    <div style={{ textAlign: "center", marginTop: "100px" }}>
       <h2>Login</h2>
 
       <input
@@ -15,23 +28,24 @@ function Login({ username, setUsername, password, setPassword, handleLogin }) {
         placeholder="Enter Username"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
-        style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
+        style={{ padding: "10px", marginBottom: "10px" }}
       />
+      <br />
 
       <input
         type="password"
         placeholder="Enter Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
+        style={{ padding: "10px", marginBottom: "10px" }}
       />
+      <br />
 
       <button
         onClick={handleLogin}
         style={{
-          width: "100%",
-          padding: "10px",
-          backgroundColor: "#4CAF50",
+          padding: "10px 20px",
+          backgroundColor: "#2563EB",
           color: "white",
           border: "none",
           borderRadius: "5px"

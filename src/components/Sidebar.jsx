@@ -1,39 +1,60 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function Sidebar() {
-  const [active, setActive] = useState("Worklist");
+  const navigate = useNavigate();
+  const location = useLocation();
   const inputRef = useRef(null);
 
   useEffect(() => {
-    inputRef.current.focus(); // auto focus
+    inputRef.current.focus();
   }, []);
 
-  const menu = ["Worklist", "Dashboard", "Reports"];
+  const menuItems = [
+    { name: "Worklist", path: "/worklist" },
+    { name: "Dashboard", path: "/dashboard" },
+    { name: "Reports", path: "/reports" }
+  ];
 
   return (
     <div style={{
-      width: "200px",
-      backgroundColor: "#eee",
-      padding: "20px"
+      width: "220px",
+      height: "100vh",
+      backgroundColor: "#f5f5f5",
+      padding: "15px",
+      position: "fixed",
+      left: 0,
+      top: 0
     }}>
       <input
         ref={inputRef}
+        type="text"
         placeholder="Search..."
-        style={{ width: "100%", marginBottom: "20px" }}
+        style={{
+          width: "100%",
+          padding: "8px",
+          marginBottom: "20px"
+        }}
       />
 
-      {menu.map((item) => (
+      {menuItems.map((item) => (
         <div
-          key={item}
-          onClick={() => setActive(item)}
+          key={item.name}
+          onClick={() => navigate(item.path)}
           style={{
-            padding: "10px",
+            padding: "12px",
+            marginBottom: "10px",
             cursor: "pointer",
-            backgroundColor: active === item ? "blue" : "transparent",
-            color: active === item ? "white" : "black"
+            borderRadius: "5px",
+            backgroundColor:
+              location.pathname === item.path ? "#2563EB" : "transparent",
+            color:
+              location.pathname === item.path ? "white" : "black",
+            fontWeight:
+              location.pathname === item.path ? "bold" : "normal"
           }}
         >
-          {item}
+          {item.name}
         </div>
       ))}
     </div>
