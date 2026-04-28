@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { Skeleton } from "@mui/material";
 
 import Sidebar from "../components/Sidebar";
 import StatusStepper from "../components/StatusStepper";
@@ -16,12 +17,13 @@ function Dashboard() {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 1500);
+    }, 2000);
   }, []);
 
   const tdStyle = {
     border: "1px solid #ddd",
-    padding: "8px"
+    padding: "8px",
+    fontSize: "14px"
   };
 
   return (
@@ -34,27 +36,52 @@ function Dashboard() {
         {(location.pathname === "/dashboard" ||
           location.pathname === "/") && (
           <>
-            {/* GREEN BOX */}
+            {/* 🔥 GREEN BOX */}
             {loading ? (
-              <p>Loading...</p>
+              <Skeleton variant="rectangular" height={70} />
             ) : (
-              <div style={{
-                backgroundColor: "#E6F4EA",
-                padding: "15px",
-                borderRadius: "10px",
-                border: "1px solid green"
-              }}>
-                <h3>PD - TRMPBL01 - 032626 - 4591 - EDUSCHOL</h3>
+              <div
+                style={{
+                  backgroundColor: "#E6F4EA",
+                  padding: "15px",
+                  borderRadius: "10px",
+                  border: "1px solid #4CAF50",
+                  marginTop: "20px"
+                }}
+              >
+                <h3 style={{ margin: 0 }}>
+                  PD - TRMPBL01 - 032626 - 4591 - EDUSCHOL
+                </h3>
+                <p style={{ margin: 0, fontSize: "12px", color: "gray" }}>
+                  Generated Unique Account Number
+                </p>
               </div>
             )}
 
-            {/* STEPPER */}
-            <StatusStepper />
+            {/* 🔥 STEPPER */}
+            {loading ? (
+              <Skeleton variant="rectangular" height={80} />
+            ) : (
+              <StatusStepper />
+            )}
 
-            {/* 🔥 TILES USING MAP */}
-            <div style={{ display: "flex", gap: "15px", marginTop: "20px" }}>
+            {/* 🔥 TILES */}
+            <div
+              style={{
+                display: "flex",
+                gap: "15px",
+                marginTop: "25px"
+              }}
+            >
               {loading
-                ? "Loading tiles..."
+                ? [1, 2, 3, 4, 5].map((i) => (
+                    <Skeleton
+                      key={i}
+                      variant="rectangular"
+                      width={120}
+                      height={80}
+                    />
+                  ))
                 : tilesData.map((item, index) => (
                     <InfoTile
                       key={index}
@@ -65,41 +92,74 @@ function Dashboard() {
                   ))}
             </div>
 
-            {/* 🔥 TABLES USING MAP */}
-            <div style={{ display: "flex", gap: "20px", marginTop: "30px" }}>
-              
-              {/* LEFT */}
-              <div style={{ flex: 1, background: "#fff", padding: "15px" }}>
-                <h3>Deposit Account Information</h3>
+            {/* 🔥 TABLES */}
+            <div
+              style={{
+                display: "flex",
+                gap: "20px",
+                marginTop: "30px"
+              }}
+            >
+              {loading ? (
+                <>
+                  <Skeleton variant="rectangular" width="100%" height={150} />
+                  <Skeleton variant="rectangular" width="100%" height={150} />
+                </>
+              ) : (
+                <>
+                  {/* LEFT TABLE */}
+                  <div
+                    style={{
+                      flex: 1,
+                      backgroundColor: "#fff",
+                      padding: "15px",
+                      borderRadius: "10px",
+                      boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
+                    }}
+                  >
+                    <h3>Deposit Account Information</h3>
 
-                <table style={{ width: "100%", borderCollapse: "collapse" }}>
-                  <tbody>
-                    {depositInfo.map((row, index) => (
-                      <tr key={index}>
-                        <td style={tdStyle}>{row.label}</td>
-                        <td style={tdStyle}>{row.value}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                    <table
+                      style={{ width: "100%", borderCollapse: "collapse" }}
+                    >
+                      <tbody>
+                        {depositInfo.map((row, index) => (
+                          <tr key={index}>
+                            <td style={tdStyle}>{row.label}</td>
+                            <td style={tdStyle}>{row.value}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
 
-              {/* RIGHT */}
-              <div style={{ flex: 1, background: "#fff", padding: "15px" }}>
-                <h3>Department & Treasury Details</h3>
+                  {/* RIGHT TABLE */}
+                  <div
+                    style={{
+                      flex: 1,
+                      backgroundColor: "#fff",
+                      padding: "15px",
+                      borderRadius: "10px",
+                      boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
+                    }}
+                  >
+                    <h3>Department & Treasury Details</h3>
 
-                <table style={{ width: "100%", borderCollapse: "collapse" }}>
-                  <tbody>
-                    {treasuryInfo.map((row, index) => (
-                      <tr key={index}>
-                        <td style={tdStyle}>{row.label}</td>
-                        <td style={tdStyle}>{row.value}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-
+                    <table
+                      style={{ width: "100%", borderCollapse: "collapse" }}
+                    >
+                      <tbody>
+                        {treasuryInfo.map((row, index) => (
+                          <tr key={index}>
+                            <td style={tdStyle}>{row.label}</td>
+                            <td style={tdStyle}>{row.value}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </>
+              )}
             </div>
           </>
         )}
